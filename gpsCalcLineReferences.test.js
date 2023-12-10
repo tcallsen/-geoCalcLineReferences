@@ -15,4 +15,11 @@ describe('gpsCalcLineReferences', () => {
     assert.equal(referencedWkt, expectedReferencedWkt);
   });
 
+  test('wkt multilinestring', () => {
+    const wkt = fs.readFileSync('./test_data/multilinestring.wkt.txt', 'utf8');
+    const expectedReferencedWkt = fs.readFileSync('./test_data/multilinestring.referenced.wkt.txt', 'utf8');
+    const referencedWkt = gpxCalcLineReferences(wkt);
+    assert.equal(referencedWkt, expectedReferencedWkt);
+  });
+
 });
