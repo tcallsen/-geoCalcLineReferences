@@ -48,9 +48,6 @@ module.exports = function(inputWKT) {
   // output back to WKT (including 4th dimension)
   let outputWKT = geojsonToWKT(linestring.geometry)
 
-  // explicitly label LINESTRING as LINSTRING ZM - not handled by wellknown library..
-  outputWKT = outputWKT.replace("LINESTRING", "LINESTRING ZM")
-
   return outputWKT
 
 }
