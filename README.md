@@ -1,5 +1,5 @@
 # Elevation Gain in GPX files 
-Calculates the distance traveled (linear reference) along a LINESTRING Z geometry, supplied in WKT format. Returns a LINESTRING ZM geometry with the M dimension populated.
+Calculates the distance traveled (linear reference) along a LINESTRING Z or MULTILINESTRING Z geometry, supplied in WKT format. Returns a WKT geometry with the M dimension populated.
 
 The final result is in the same units as the original source data.. likely meters if sourced from Strava.
 
@@ -23,4 +23,12 @@ const sampleWKT = fs.readFileSync('./sample_data/Sample_Stintson_Beach.wkt', 'ut
 const referencedWKT = gpxCalcLineReferences( sampleWKT )
 
 console.log(referencedWKT)
+```
+
+## Dev/Test
+
+```
+nvm use
+npm install
+npm test
 ```
