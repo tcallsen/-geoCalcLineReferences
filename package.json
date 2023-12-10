@@ -16,8 +16,8 @@
   "author": "Taylor Callsen",
   "license": "ISC",
   "dependencies": {
-    "@turf/turf": "^6.5.0",
-    "wellknown": "^0.5.0"
+    "@terraformer/wkt": "^2.2.0",
+    "@turf/turf": "^6.5.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"

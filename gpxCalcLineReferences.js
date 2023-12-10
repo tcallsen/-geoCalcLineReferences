@@ -1,6 +1,6 @@
 'use strict';
 
-var parse = require('wellknown')
+const { wktToGeoJSON, geojsonToWKT } = require("@terraformer/wkt")
 const turf = require('@turf/turf')
 
 /**
@@ -9,17 +9,17 @@ const turf = require('@turf/turf')
  *  For more information on the WKT coordinate dimensions, see the Geometric Objects section here:
  *    https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
  * 
- * @param {string} LINESTRING Z, in WKT format
- * @return {string} LINESTRING ZM, in WKT format
+ * @param {string} LINESTRING Z or MULTILINESTRING Z, in WKT format
+ * @return {string} LINESTRING ZM or MULTILINESTRING ZM, in WKT format
  *
  */
 module.exports = function(inputWKT) {
 
   // convert to GeoJSON
-  const linestringJSON = parse(inputWKT).coordinates
+  const featureGeoJson = wktToGeoJSON(inputWKT);
 
   // load into turf linestring obj
-  const linestring = turf.lineString(linestringJSON)
+  const linestring = turf.lineString(featureGeoJson.coordinates)
 
   // add linear referencing - 4th "M" dimension
   let previousLength = 0 // track previous length
@@ -46,7 +46,7 @@ module.exports = function(inputWKT) {
   // console.log('cum length:', linestring.geometry.coordinates[linestring.geometry.coordinates.length-1][3])
 
   // output back to WKT (including 4th dimension)
-  let outputWKT = parse.stringify(linestring)
+  let outputWKT = geojsonToWKT(linestring.geometry)
 
   // explicitly label LINESTRING as LINSTRING ZM - not handled by wellknown library..
   outputWKT = outputWKT.replace("LINESTRING", "LINESTRING ZM")
